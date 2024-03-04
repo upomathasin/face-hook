@@ -9,7 +9,7 @@ const getChildId = (children) => {
 export default function Field({ label, error, children, htmlFor }) {
   const id = htmlFor || getChildId(children);
   return (
-    <div className=" form-control">
+    <div className="form-control ">
       {label && (
         <label htmlFor={id} className="auth-label">
           {label}
