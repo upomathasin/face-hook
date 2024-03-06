@@ -28,14 +28,13 @@ export default function LoginFrom() {
         if (token) {
           const authToken = token.token;
           const refreshToken = token.refreshToken;
+
+          console.log(response.data, "inloginform");
+          setAuth({ user, authToken, refreshToken });
+          navigate("/");
+          console.log(response);
         }
-
-        console.log(response);
       }
-
-      const user = { ...formData };
-      setAuth({ user });
-      navigate("/");
     } catch (error) {
       setError("root.random", {
         type: "random",
