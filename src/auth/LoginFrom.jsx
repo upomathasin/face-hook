@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Field from "../common/Field";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import axios from "axios";
 
 export default function LoginFrom() {
   const navigate = useNavigate();
@@ -11,14 +12,37 @@ export default function LoginFrom() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
-  const submitFrom = (formData) => {
-    console.log("From Data : ", formData);
+  const submitFrom = async (formData) => {
+    // console.log("From Data : ", formData);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/auth/login`,
+        formData
+      );
 
-    const user = { ...formData };
-    setAuth({ user });
-    navigate("/");
+      if (response.status == 200) {
+        const { token, user } = response.data;
+        if (token) {
+          const authToken = token.token;
+          const refreshToken = token.refreshToken;
+        }
+
+        console.log(response);
+      }
+
+      const user = { ...formData };
+      setAuth({ user });
+      navigate("/");
+    } catch (error) {
+      setError("root.random", {
+        type: "random",
+        message: "User Email not found!",
+      });
+      console.log(error.message);
+    }
   };
   return (
     <div>
@@ -53,6 +77,8 @@ export default function LoginFrom() {
             name="password"
           />
         </Field>
+
+        <p className="text-red-400">{errors?.root?.random?.message}</p>
         <button
           className="auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90"
           type="submit"
