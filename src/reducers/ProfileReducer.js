@@ -17,6 +17,12 @@ const ProfileReducer = (state, action) => {
         posts: action.data.posts,
       };
     }
+    case actions.profile.DATA_FETCHING: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case actions.profile.DATA_FETCHED_ERROR: {
       return {
         ...state,
@@ -24,8 +30,25 @@ const ProfileReducer = (state, action) => {
         error: action.error,
       };
     }
+    case actions.profile.USER_DATA_EDITED: {
+      return {
+        ...state,
+        user: action.data,
+        loading: false,
+      };
+    }
+    case actions.profile.IMAGE_UPDATED: {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.data.avatar,
+        },
+        loading: false,
+      };
+    }
 
-    default: {
+    case actions.profile.default: {
       return state;
     }
   }

@@ -23,10 +23,12 @@ export default function Profile() {
         );
 
         console.log(response);
-        dispatch({
-          type: actions.profile.DATA_FETCHED,
-          data: response.data,
-        });
+        if (response.status == 200) {
+          dispatch({
+            type: actions.profile.DATA_FETCHED,
+            data: response.data,
+          });
+        }
       } catch (err) {
         console.log(err);
 
@@ -48,7 +50,6 @@ export default function Profile() {
     <main class="mx-auto max-w-[1020px] py-8">
       <div class="container">
         <ProfileInfo></ProfileInfo>
-        <Bio></Bio>
       </div>
     </main>
   );
