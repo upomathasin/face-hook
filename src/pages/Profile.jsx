@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { useAuth } from "../hooks/useAuth";
-
+import useProfile from "../hooks/useProfile";
+import { actions } from "../actions";
+import ProfileInfo from "../profile/ProfileInfo";
+import Bio from "../profile/Bio";
 export default function Profile() {
-  const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { state, dispatch } = useProfile();
+
   const { api } = useAxios();
   const { auth } = useAuth();
 
   useEffect(() => {
-    setLoading(true);
+    //setLoading(true);
+    dispatch({
+      type: actions.profile.DATA_FETCHING,
+    });
     const fetchProfile = async () => {
       try {
         const response = await api.get(
@@ -19,26 +23,33 @@ export default function Profile() {
         );
 
         console.log(response);
-        setUser(response.data.user);
-        setPosts(response.data.posts);
+        dispatch({
+          type: actions.profile.DATA_FETCHED,
+          data: response.data,
+        });
       } catch (err) {
         console.log(err);
-        setError(err);
+
+        dispatch({
+          type: actions.profile.DATA_FETCHED_ERROR,
+          error: err.message,
+        });
       } finally {
-        setLoading(false);
       }
     };
 
     fetchProfile();
   }, []);
 
-  console.log("User", user);
-  if (loading) {
+  if (state?.loading) {
     return <h1>Data is Fatching...........</h1>;
   }
   return (
-    <div>
-      <h1 className="text-8xl text-teal-400">Hi {user?.firstName}</h1>
-    </div>
+    <main class="mx-auto max-w-[1020px] py-8">
+      <div class="container">
+        <ProfileInfo></ProfileInfo>
+        <Bio></Bio>
+      </div>
+    </main>
   );
 }

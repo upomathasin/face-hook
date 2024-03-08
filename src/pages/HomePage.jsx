@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const { auth } = useAuth();
+
   console.log(auth);
   return (
     <div>

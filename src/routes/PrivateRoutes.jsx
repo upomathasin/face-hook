@@ -7,7 +7,7 @@ export default function PrivateRoutes() {
   const { auth } = useAuth();
   return (
     <div>
-      {auth.user ? (
+      {auth.authToken ? (
         <ProfileProvider>
           {" "}
           <div>
