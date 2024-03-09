@@ -1,14 +1,10 @@
 import React from "react";
-
+import poster from "../assets/images/poster.png";
 export default function PostBody() {
   return (
     <div className="border-b border-[#3F3F3F] py-4 lg:py-5 lg:text-xl">
       <div className="flex items-center justify-center overflow-hidden">
-        <img
-          className="max-w-full"
-          src="./assets/images/poster.png"
-          alt="poster"
-        />
+        <img className="max-w-full" src={poster} alt="poster" />
       </div>
       <p>
         Grateful for the incredible experience of serving as the President of
