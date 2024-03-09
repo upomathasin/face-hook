@@ -11,11 +11,13 @@ const getTimeDifference = (time) => {
 
   let message = "";
   if (HourDifference !== 0) {
-    message = `${HourDifference} Hour`;
-  } else if (MinDifference !== 0) {
-    message = message + `${MinDifference} Min`;
-  } else {
-    message = message + `${SecDifference} Second`;
+    message = `${HourDifference} Hour `;
+  }
+  if (MinDifference !== 0) {
+    message = message + `${MinDifference} Min `;
+  }
+  if (SecDifference) {
+    message = message + `${SecDifference} Second `;
   }
   message = message + " Ago";
   return message;
