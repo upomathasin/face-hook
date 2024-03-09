@@ -14,7 +14,7 @@ export default function ({ post }) {
         postId={post?.id}
         commentCount={post?.comments.length}
       ></PostAction>
-      <PostComments comments={post?.comments}></PostComments>
+      <PostComments comments={post?.comments} post={post}></PostComments>
     </article>
   );
 }
