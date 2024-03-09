@@ -5,6 +5,7 @@ import useProfile from "../hooks/useProfile";
 import { actions } from "../actions";
 import ProfileInfo from "../profile/ProfileInfo";
 import Bio from "../profile/Bio";
+import MyPost from "../profile/MyPost";
 export default function Profile() {
   const { state, dispatch } = useProfile();
 
@@ -44,12 +45,20 @@ export default function Profile() {
   }, []);
 
   if (state?.loading) {
-    return <h1>Data is Fatching...........</h1>;
+    return (
+      <div>
+        <span className="loading loading-bars loading-xs"></span>
+        <span className="loading loading-bars loading-sm"></span>
+        <span className="loading loading-bars loading-md"></span>
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
   }
   return (
     <main class="mx-auto max-w-[1020px] py-8">
       <div class="container">
         <ProfileInfo></ProfileInfo>
+        <MyPost></MyPost>
       </div>
     </main>
   );

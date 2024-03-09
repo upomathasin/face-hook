@@ -19,7 +19,6 @@ export default function useAxios() {
       (error) => Promise.reject(error)
     );
     //check response
-
     const responseIntercept = api.interceptors.response.use(
       (response) => response,
       async (error) => {
